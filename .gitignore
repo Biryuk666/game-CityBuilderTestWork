@@ -1,0 +1,12 @@
+# Visual Studio files
+**/.vs
+*.sln
+**.vsconfig
+
+# Unreal Engine files
+**/Binaries
+**/Build
+**/DerivedDataCache
+**/enc_temp_folder
+**/Intermediate
+**/Saved
