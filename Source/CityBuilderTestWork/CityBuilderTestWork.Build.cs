@@ -22,6 +22,7 @@ public class CityBuilderTestWork : ModuleRules
 
         PublicIncludePaths.AddRange(new string[]
         {
+            "CityBuilderTestWork/Public",
             "CityBuilderTestWork/Public/Actors",
             "CityBuilderTestWork/Public/GameModes",
             "CityBuilderTestWork/Public/PlayerControllers",

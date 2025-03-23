@@ -6,9 +6,6 @@
 #include "GameFramework/GameModeBase.h"
 #include "DefaultGameMode.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class CITYBUILDERTESTWORK_API ADefaultGameMode : public AGameModeBase
 {

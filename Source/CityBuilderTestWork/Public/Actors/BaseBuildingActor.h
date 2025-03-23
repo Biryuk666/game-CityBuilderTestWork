@@ -6,15 +6,26 @@
 #include "GameFramework/Actor.h"
 #include "BaseBuildingActor.generated.h"
 
+class ABaseBridgeActor;
+
 USTRUCT(BlueprintType)
 struct FResourcesUsageInfo {
 
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
-	int32 Electricity = 0;
-	int32 Water = 0;
-	int32 Oxygen = 0;
-	int32 Food = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Electricity = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Water = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Oxygen = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Food = 0.0f;
+
+	FResourcesUsageInfo Reverse();
 };
 
 UCLASS()
@@ -25,14 +36,47 @@ class CITYBUILDERTESTWORK_API ABaseBuildingActor : public AActor
 public:
 	ABaseBuildingActor();
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
+	bool bIsConnected = false;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
+	bool bIsFullConnected = false;
+
+	UFUNCTION(BlueprintCallable)
+	void Breakdown();
+
+	UFUNCTION(BlueprintCallable)
+	void ActivateBuilding();
+
+	UFUNCTION(BlueprintCallable)
+	void DettachBridge();
+
+	//UFUNCTION(BlueprintCallable)
+	//void ConnectToBuilding(ABaseBuildingActor* ConnectingBuilding);
+
+	//UFUNCTION(BlueprintCallable)
+	//void ConnectBuildingToThis(ABaseBuildingActor* ConnectingBuilding);
+
+	void ConnectBridge(ABaseBridgeActor* ConnectingBridge);
+
+	void ChangeColorToSelected();
+	void ChangeColorToDefault();
+
 	FResourcesUsageInfo GetResourcesUsageInfo() const;
 
-	virtual void Tick(float DeltaTime) override;
-
 protected:
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Build")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
 	FResourcesUsageInfo ResourcesUsageInfo;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
+	UMaterialInstance* DefaultColor;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
+	UMaterialInstance* ColorWhenSelected;
+
 	virtual void BeginPlay() override;	
+
+private:
+	ABaseBridgeActor* ConnectedToThis;
+	ABaseBridgeActor* ConnectedFromThis;
 };
